@@ -10,6 +10,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import PhotoCard from "./PhotoCard";
+import "react-native-gesture-handler";
+import {
+  createStackNavigator,
+  StackNavigationProp,
+} from "@react-navigation/stack";
+import PhotoView from "./PhotoCard";
+import { useNavigation } from "@react-navigation/native";
+import { StackParamList } from "./App";
+
 interface ImageData {
   id: number;
   url: string;
@@ -19,13 +28,15 @@ for (let i = 1; i < 70; i++) {
   imageData.push({ id: i, url: `https://picsum.photos/id/${i}/200` });
 }
 
-const PhotoList: React.FC = () => {
+type PhotoListNavigationProp = StackNavigationProp<StackParamList, "PhotoList">;
+
+const PhotoList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const navigation = useNavigation<PhotoListNavigationProp>();
   const handleImagePress = (url: string) => {
-    setSelectedImage(url);
-    setModalVisible(true);
+    navigation.navigate("PhotoView", { id: 123, url });
   };
   const filteredImages = imageData.filter((image) =>
     image.id.toString().includes(searchTerm)
@@ -49,7 +60,8 @@ const PhotoList: React.FC = () => {
           />
         )}
       />
-      <Modal
+
+      {/* <Modal
         animationType="fade"
         transparent={true}
         visible={modalVisible}
@@ -61,7 +73,7 @@ const PhotoList: React.FC = () => {
         >
           <Image source={{ uri: selectedImage }} style={styles.modalImage} />
         </TouchableOpacity>
-      </Modal>
+      </Modal> */}
     </View>
   );
 };

@@ -35,9 +35,10 @@ const PhotoList = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const navigation = useNavigation<PhotoListNavigationProp>();
-  const handleImagePress = (url: string) => {
-    navigation.navigate("PhotoView", { id: 123, url });
+  const handleImagePress = (id: number, url: string) => {
+    navigation.navigate("PhotoView", { id, url });
   };
+
   const filteredImages = imageData.filter((image) =>
     image.id.toString().includes(searchTerm)
   );
@@ -56,7 +57,7 @@ const PhotoList = () => {
         renderItem={({ item }) => (
           <PhotoCard
             url={item.url}
-            onPress={() => handleImagePress(item.url)}
+            onPress={() => handleImagePress(item.id, item.url)}
           />
         )}
       />

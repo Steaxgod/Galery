@@ -31,7 +31,7 @@ const App: React.FC = () => {
       <Stack.Navigator>
         <Stack.Screen name="PhotoList" component={PhotoList} />
         <Stack.Screen name="PhotoView" component={PhotoView} />
-        <Stack.Screen name="Modal" component={Modal} />
+        <Stack.Screen name="Modal" component={Modal} style={styles.container} />
       </Stack.Navigator>
 
       {/* <View style={styles.container}>

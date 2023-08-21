@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 import PhotoList from "./PhotoList";
 import { PhotoView } from "./PhotoView";
 import Modal from "./Modal";
-
+import { Weather } from "./Weather";
 import {
   DrawerActions,
   NavigationContainer,
@@ -22,16 +22,35 @@ export type StackParamList = {
   PhotoView: { id: number; url: string };
   Modal: { url: string };
 };
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import PhotoCard from "./PhotoCard";
 
 const Stack = createStackNavigator<StackParamList>();
+const Drawer = createDrawerNavigator();
 
 const App: React.FC = () => {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        screenOptions={{
+          drawerPosition: "left",
+          drawerType: "front",
+        }}
+      >
+        <Drawer.Screen name="PhotoList" component={PhotoList} />
+        <Drawer.Screen name="Wheater" component={Weather} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+};
+
+const Photo = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="PhotoList" component={PhotoList} />
         <Stack.Screen name="PhotoView" component={PhotoView} />
-        <Stack.Screen name="Modal" component={Modal} style={styles.container} />
+        <Stack.Screen name="Modal" component={Modal} />
       </Stack.Navigator>
 
       {/* <View style={styles.container}>

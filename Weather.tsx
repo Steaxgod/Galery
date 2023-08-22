@@ -23,7 +23,7 @@ export const Weather = () => {
         <View style={styles.centeredContainer}>
           <Image
             source={{ uri: "http:" + data.current?.condition?.icon }}
-            style={styles.icon}
+            style={styles.icons}
           />
           <Text style={styles.txt}>
             Temperature: {data.current?.temp_c || "N/A"}°C
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  icon: {
+  icons: {
     width: 128, // Make it larger
     height: 128, // Make it larger
   },

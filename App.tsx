@@ -1,8 +1,12 @@
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import PhotoList from "./PhotoList";
 import { PhotoView } from "./PhotoView";
 import Modal from "./Modal";
 import { Weather } from "./Weather";
+import { WeatherList } from "./WeatherList";
+import FiveDaysScreen from "./FiveDaysScreen";
+import SevenDaysScreen from "./SevenDaysScreen";
 import {
   DrawerActions,
   NavigationContainer,
@@ -11,22 +15,23 @@ import {
   useNavigation,
   useRoute,
 } from "@react-navigation/native";
-
 import {
   StackNavigationProp,
   createStackNavigator,
 } from "@react-navigation/stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import PhotoCard from "./PhotoCard";
 
 export type StackParamList = {
   PhotoList: undefined;
   PhotoView: { id: number; url: string };
   Modal: { url: string };
 };
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import PhotoCard from "./PhotoCard";
 
 const Stack = createStackNavigator<StackParamList>();
 const Drawer = createDrawerNavigator();
+
+const PhotoStack = createStackNavigator();
 
 const App: React.FC = () => {
   return (
@@ -37,26 +42,21 @@ const App: React.FC = () => {
           drawerType: "front",
         }}
       >
-        <Drawer.Screen name="PhotoList" component={PhotoList} />
-        <Drawer.Screen name="Wheater" component={Weather} />
+        <Drawer.Screen name="PhotoList" component={PhotoStackScreen} />
+        <Drawer.Screen name="Weather" component={Weather} />
+        <Drawer.Screen name="WeatherList" component={WeatherList} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 };
 
-const Photo = () => {
+const PhotoStackScreen: React.FC = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="PhotoList" component={PhotoList} />
-        <Stack.Screen name="PhotoView" component={PhotoView} />
-        <Stack.Screen name="Modal" component={Modal} />
-      </Stack.Navigator>
-
-      {/* <View style={styles.container}>
-        <PhotoList />
-      </View> */}
-    </NavigationContainer>
+    <PhotoStack.Navigator>
+      <PhotoStack.Screen name="PhotoList" component={PhotoList} />
+      <PhotoStack.Screen name="PhotoView" component={PhotoView} />
+      <PhotoStack.Screen name="Modal" component={Modal} />
+    </PhotoStack.Navigator>
   );
 };
 

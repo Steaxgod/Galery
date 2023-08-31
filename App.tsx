@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native";
 import PhotoList from "./PhotoList";
 import { PhotoView } from "./PhotoView";
 import Modal from "./Modal";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import {
   DrawerActions,
@@ -23,7 +24,7 @@ export type StackParamList = {
   Modal: { url: string };
 };
 
-const Stack = createStackNavigator<StackParamList>();
+const Stack = createNativeStackNavigator<StackParamList>();
 
 const App: React.FC = () => {
   return (
@@ -31,7 +32,7 @@ const App: React.FC = () => {
       <Stack.Navigator>
         <Stack.Screen name="PhotoList" component={PhotoList} />
         <Stack.Screen name="PhotoView" component={PhotoView} />
-        <Stack.Screen name="Modal" component={Modal} style={styles.container} />
+        <Stack.Screen name="Modal" component={Modal} />
       </Stack.Navigator>
 
       {/* <View style={styles.container}>

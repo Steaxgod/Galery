@@ -12,6 +12,7 @@ import {
   StackNavigationProp,
   createStackNavigator,
 } from "@react-navigation/stack";
+import Animated from "react-native-reanimated";
 
 type PhotoViewNavigationProp = StackNavigationProp<StackParamList, "PhotoView">;
 type PhotoViewRouteProp = RouteProp<StackParamList, "PhotoView">;
@@ -28,9 +29,10 @@ export function PhotoView() {
       <TouchableOpacity
         onPress={() => navigation.navigate("Modal", { url: params.url })}
       >
-        <Image
-          source={{ uri: params.url }}
+        <Animated.Image
+          sharedTransitionTag={`tag-${params.url}`}
           style={{ width: 380, height: 250, margin: 10, borderRadius: 30 }}
+          source={{ uri: params.url }}
         />
       </TouchableOpacity>
       <Text>{params.url} </Text>

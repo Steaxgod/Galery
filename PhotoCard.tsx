@@ -1,15 +1,21 @@
 import React from "react";
 import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import Animated from "react-native-reanimated";
 
 interface PhotoCardProps {
   url: string;
   onPress: () => void;
+  styles: any;
 }
 
-const PhotoCard: React.FC<PhotoCardProps> = ({ url, onPress }) => {
+const PhotoCard: React.FC<PhotoCardProps> = ({ url, onPress, styles }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Image source={{ uri: url }} style={styles.image} />
+      <Animated.Image
+        sharedTransitionTag={`tag-${url}`}
+        style={[styles.image, styles]}
+        source={{ uri: url }}
+      />
     </TouchableOpacity>
   );
 };
